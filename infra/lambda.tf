@@ -31,4 +31,10 @@ data aws_iam_policy_document assumption_policy {
 resource aws_iam_role iam_for_lambda {
   name = "${var.lambda_function_name}-executor"
   assume_role_policy = data.aws_iam_policy_document.assumption_policy.json
+
+
+  inline_policy {
+    name   = "allow-cloudwatch-logs"
+    policy = data.aws_iam_policy_document.cloudwatch_logs.json
+  }
 }
